@@ -1,21 +1,18 @@
+#include <ctype.h>
 #include "isogram.h"
 
 bool is_isogram(const char phrase[]) {
     
-    bool containsChar[30] = {0};
+    bool containsChar[26] = {0};
 
     for(int i = 0; phrase[i]; ++i) {
         
-        int index = -1;
-        if(phrase[i] >= 'a' && phrase[i] <= 'z')
-            index = phrase[i] - 'a';
-        else if(phrase[i] >= 'A' && phrase[i] <= 'Z')
-            index = phrase[i] - 'A';
+        if(!isalpha(phrase[i])) continue;
 
-        if(index != -1) {
-            if(containsChar[index]) return false;
-            else containsChar[index] = true;
-        }
+        int index = tolower(phrase[i]) - 'a';
+
+        if(containsChar[index]) return false;
+        else containsChar[index] = true;
     }
 
     return true;
